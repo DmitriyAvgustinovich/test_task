@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUserState } from "../api/types";
+import { IUserFields, IUserState } from "../api/types";
 import { RootState } from "../store";
 
 const initialState: IUserState = {
@@ -11,13 +11,21 @@ export const userSlice = createSlice({
   initialState,
   name: "user",
   reducers: {
-    setUser: (state, action: PayloadAction<IUserState>) => {
+    setUser: (state, action: PayloadAction<IUserFields>) => {
       if (action.payload.token) {
         localStorage.setItem("token", action.payload.token);
         state.token = action.payload.token;
       }
-      console.log(action.payload)
-      state.user = action.payload.user;
+
+      const userFields = {
+        email: action.payload.email,
+        name: action.payload.name,
+        gender: action.payload.gender,
+        birth_date: action.payload.birth_date,
+        avatarUrl: action.payload.avatarUrl,
+      };
+
+      state.user = userFields;
     },
     logout: (state) => {
       localStorage.clear();

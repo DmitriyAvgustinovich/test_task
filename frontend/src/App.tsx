@@ -3,21 +3,23 @@ import { AppRouter } from "./components/AppRouter/AppRouter";
 import { useGetMeQuery } from "./store/api/authApi";
 import { useSelector } from "react-redux";
 import { selectUser } from "./store/features/userSlice";
+import { Navbar } from "./components/Navbar/Navbar";
 
 export const App = () => {
-  const { data: userData, isLoading, isError } = useGetMeQuery(null);
-  const user = useSelector(selectUser);
+  const { user } = useSelector(selectUser);
+  const { isLoading, isError } = useGetMeQuery(null);
+  const token = localStorage.getItem("token");
 
-  console.log(userData);
-  console.log(user);
-  
   React.useEffect(() => {
     if ((!user && !isLoading) || isError) {
       // Redirect to login page
     }
   }, [user, isLoading, isError]);
 
-  const inited = true;
-
-  return <>{inited && <AppRouter />}</>;
+  return (
+    <>
+      {user && token && <Navbar />}
+      <AppRouter />
+    </>
+  );
 };

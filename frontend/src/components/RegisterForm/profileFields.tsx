@@ -4,12 +4,10 @@ import {
   genderOptions,
   profileFieldsDataIndexes,
   profileFieldsTitles,
-} from "./constants";
-import { UploadButton } from "./UploadButton";
+} from "../../constants/constants";
+import { UploadButton } from "../UploadButton/UploadButton";
 
 export const ProfileFields = () => {
-  const getUploadButton = UploadButton();
-
   const profileFields = [
     {
       label: profileFieldsTitles.name,
@@ -69,7 +67,7 @@ export const ProfileFields = () => {
     {
       label: profileFieldsTitles.avatarUrl,
       name: profileFieldsDataIndexes.avatarUrl,
-      node: getUploadButton(),
+      node: UploadButton(),
     },
   ];
 

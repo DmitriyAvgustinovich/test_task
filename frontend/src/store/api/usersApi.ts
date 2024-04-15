@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
 const BASE_URL = "http://localhost:4444";
 
 const getToken = () => {
@@ -26,16 +25,13 @@ export const usersApi = createApi({
     }),
 
     updateUser: builder.mutation({
-      query: ({ data }) => ({
+      query: (data) => ({
         url: `/users/update`,
         method: "PUT",
-        body: { ...data },
+        body: data,
       }),
     }),
   }),
 });
 
-export const {
-  useUpdateUserMutation,
-  useGetAllUsersQuery,
-} = usersApi;
+export const { useUpdateUserMutation, useGetAllUsersQuery } = usersApi;

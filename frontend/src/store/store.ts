@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import { configureStore, isRejectedWithValue,  ThunkAction, Action } from "@reduxjs/toolkit";
 import { usersApi } from "./api/usersApi.ts";
 import { uploadApi } from "./api/uploadApi.ts";
@@ -15,7 +14,6 @@ export const rtkQueryErrorLogger =
         : action.payload.data.message;
 
       console.warn(errorMessage);
-      toast.error(errorMessage);
     }
     return next(action)
   }

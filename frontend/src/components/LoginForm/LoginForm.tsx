@@ -1,36 +1,33 @@
 import { Button, Form, Typography, message } from "antd";
 import { ValidateErrorEntity } from "rc-field-form/lib/interface";
+import { ProfileFields } from "./ProfileFields";
+import { IUser } from "../../store/api/types";
+import { Link, useNavigate } from "react-router-dom";
+import { RouterPath } from "../AppRouter/routeConfig";
 import {
   AND_VALIDATE_MESSAGE,
   DEFAULT_VALIDATE_MESSAGE,
 } from "../../constants/constants";
-import { ProfileFields } from "./ProfileFields";
-import { useRegisterMutation } from "../../store/api/authApi";
-import { IUser } from "../../store/api/types";
-import { Link, useNavigate } from "react-router-dom";
-import { RouterPath } from "../AppRouter/routeConfig";
-import { Page } from "../Page/Page";
+import { useLoginMutation } from "../../store/api/authApi";
 import React from "react";
+import { Page } from "../Page/Page";
 
-export const RegisterForm = () => {
-  const [register, { isSuccess, isLoading, isError }] = useRegisterMutation();
+export const LoginForm = () => {
+  const [login, { isSuccess, isLoading, isError }] = useLoginMutation();
   const navigate = useNavigate();
 
   const onFinishCreateQuestionnaire = (formValues: IUser) => {
-    register({
-      ...formValues,
-      avatarUrl: formValues.avatarUrl.fileList[0].response.url,
-    });
+    login(formValues);
   };
 
   React.useEffect(() => {
     if (!isLoading && isSuccess) {
-      message.success("Профиль создан!");
+      message.success("Авторизация прошла успешно!");
       navigate(RouterPath.account);
     }
 
     if (isError) {
-      message.error("Произошла ошибка при создании профиля");
+      message.error("Неверный логин или пароль!");
     }
   }, [isError, isLoading, isSuccess, navigate]);
 
@@ -53,7 +50,7 @@ export const RegisterForm = () => {
 
   return (
     <Page>
-      <Typography.Title>Создать профиль</Typography.Title>
+      <Typography.Title>Авторизоваться</Typography.Title>
 
       <Form
         layout="vertical"
@@ -62,11 +59,11 @@ export const RegisterForm = () => {
       >
         <ProfileFields />
         <Button type="primary" htmlType="submit">
-          Зарегестрироваться
+          Авторизоваться
         </Button>
 
-        <Link to={RouterPath.login}>
-          <Button type="link">Есть аккаунт? Войти</Button>
+        <Link to={RouterPath.register}>
+          <Button type="link">Нет аккаунта? Зарегестрироваться</Button>
         </Link>
       </Form>
     </Page>
