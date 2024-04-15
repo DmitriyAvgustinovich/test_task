@@ -1,48 +1,81 @@
-import { Input } from "antd";
+import { DatePicker, Form, Input, Select } from "antd";
+import {
+  DEFAULT_VALIDATE_MESSAGE,
+  genderOptions,
+  profileFieldsDataIndexes,
+  profileFieldsTitles,
+} from "./constants";
+import { UploadButton } from "./UploadButton";
 
-export const profileFields = [
-  {
-    label: "Состояние",
-    name: "condition",
-    rules: [
-      {
-        required: true,
-        message: "Пожалуйста, введите состояние предмета залога!",
-      },
-    ],
-    node: <Input />,
-  },
-  {
-    label: "Название",
-    name: "description",
-    rules: [
-      {
-        required: true,
-        message: "Пожалуйста, введите описание предмета залога!",
-      },
-    ],
-    node: <Input />,
-  },
-  {
-    label: "Характеристики",
-    name: "characteristics",
-    rules: [
-      {
-        required: true,
-        message: "Пожалуйста, введите характеристики предмета залога!",
-      },
-    ],
-    node: <Input />,
-  },
-  {
-    label: "Цена",
-    name: "price",
-    rules: [
-      {
-        required: true,
-        message: "Пожалуйста, введите цену предмета залога!",
-      },
-    ],
-    node: <Input />,
-  },
-];
+export const ProfileFields = () => {
+  const getUploadButton = UploadButton();
+
+  const profileFields = [
+    {
+      label: profileFieldsTitles.name,
+      name: profileFieldsDataIndexes.name,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} имя`,
+        },
+      ],
+      node: <Input />,
+    },
+    {
+      label: profileFieldsTitles.email,
+      name: profileFieldsDataIndexes.email,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} e-mail`,
+        },
+      ],
+      node: <Input />,
+    },
+    {
+      label: profileFieldsTitles.password,
+      name: profileFieldsDataIndexes.password,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} пароль`,
+        },
+      ],
+      node: <Input />,
+    },
+    {
+      label: profileFieldsTitles.birth_date,
+      name: profileFieldsDataIndexes.birth_date,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} дату рождения`,
+        },
+      ],
+      node: <DatePicker />,
+    },
+    {
+      label: profileFieldsTitles.gender,
+      name: profileFieldsDataIndexes.gender,
+      rules: [
+        {
+          required: true,
+          message: `${DEFAULT_VALIDATE_MESSAGE} пол`,
+        },
+      ],
+      node: <Select placeholder="Выберите пол" options={genderOptions} />,
+    },
+    {
+      label: profileFieldsTitles.avatarUrl,
+      name: profileFieldsDataIndexes.avatarUrl,
+      node: getUploadButton(),
+    },
+  ];
+
+  return profileFields.map((field) => (
+    <Form.Item {...field} key={field.name}>
+      {field.node}
+    </Form.Item>
+  ));
+};

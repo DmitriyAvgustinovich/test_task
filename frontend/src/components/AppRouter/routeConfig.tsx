@@ -1,6 +1,6 @@
 import { RouteProps } from "react-router-dom";
-import { ProfileCardsPage } from "../../pages/ProfileCardsPage";
 import { RegisterPage } from "../../pages/RegisterPage";
+import { MainPage } from "../../pages/MainPage";
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -8,23 +8,23 @@ export type AppRouteProps = RouteProps & {
 };
 
 export enum AppRoutes {
-  PROFILE_CARDS = "profile_cards",
+  MAIN = "main",
   REGISTER = "register",
 }
 
 export const RouterPath: Record<AppRoutes, string> = {
-  [AppRoutes.PROFILE_CARDS]: "/",
+  [AppRoutes.MAIN]: "/",
   [AppRoutes.REGISTER]: "/register",
 };
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
+  [AppRoutes.MAIN]: {
+    path: RouterPath.main,
+    element: <MainPage />,
+    authOnly: true,
+  },
   [AppRoutes.REGISTER]: {
     path: RouterPath.register,
     element: <RegisterPage />,
-  },
-  [AppRoutes.PROFILE_CARDS]: {
-    path: RouterPath.profile_cards,
-    element: <ProfileCardsPage />,
-    authOnly: true,
   },
 };

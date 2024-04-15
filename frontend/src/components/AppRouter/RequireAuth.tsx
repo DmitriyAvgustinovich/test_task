@@ -9,8 +9,8 @@ export function RequireAuth(props: RequireAuthProps) {
   const { children } = props;
 
   // const auth = useSelector(getUserAuthData);
-  const auth = false;
-  if (!auth)  return <Navigate to={RouterPath.profile_cards} />;
+  const auth = true;
+  if (!auth)  return <Navigate to={RouterPath.main} />;
 
   return children;
 }

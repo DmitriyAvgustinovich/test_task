@@ -25,6 +25,14 @@ export const authApi = createApi({
         method: 'POST',
         body: userData,
       }),
+      async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        try {
+            const { data } = await queryFulfilled;
+            dispatch(setUser(data));
+        } catch (error) {
+            console.log(error)
+        }
+    },
     }),
     login: builder.mutation({
       query: (credentials) => ({
